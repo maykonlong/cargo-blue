@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreamento de Carga - Cargoblue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-text-link">CARGOBLUE</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#services">Serviços</a></li>
+                    <li><a href="frota.html">Frota</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#calculator">Calcular Frete</a></li>
+                    <li><a href="rastreamento.html">Rastreamento</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Rastreamento -->
+    <section class="tracking-section" id="tracking">
+        <div class="container">
+            <h2>Rastreie sua Encomenda</h2>
+            <p>Insira o código de rastreamento abaixo para ver o status da sua entrega.</p>
+            <div class="tracking-form-container">
+                <form id="tracking-form">
+                    <div class="form-group">
+                        <label for="tracking-code">Código de Rastreamento</label>
+                        <input type="text" id="tracking-code" placeholder="Ex: CB123456789BR" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Rastrear</button>
+                </form>
+                <div id="tracking-result" class="result" style="display: none; margin-top: 20px;">
+                    <h4>Status da Entrega</h4>
+                    <p id="tracking-result-text"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Cargoblue</h3>
+                    <p>Soluções logísticas completas para transporte de cargas em todo o Brasil.</p>
+                    <p><strong>CNPJ:</strong> 28.150.710/0001-17</p>
+                    <p><strong>Razão Social:</strong> TRANSPORTADORA CARGOBLUE LTDA</p>
+                    <p><strong>E-mail:</strong> <a href="mailto:contato@cargoblue.com.br">contato@cargoblue.com.br</a> <i class="fas fa-copy copy-icon" onclick="copyToClipboard('contato@cargoblue.com.br')" title="Copiar e-mail"></i></p>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/5511989140405" target="_blank" rel="noopener noreferrer">(11) 98914-0405</a> <i class="fas fa-copy copy-icon" onclick="copyToClipboard('(11) 98914-0405')" title="Copiar número"></i></p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/cargobluebr?mibextid=LQQJ4d" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/cargobluebr" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/cargoblue-log%C3%ADstica-e-transportes/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/5511989140405" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="index.html#services">Transporte Rodoviário</a></li>
+                        <li><a href="index.html#services">Transporte Marítimo</a></li>
+                        <li><a href="index.html#services">Transporte Aéreo</a></li>
+                        <li><a href="index.html#services">Armazenagem</a></li>
+                        <li><a href="index.html#services">Logística Integrada</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#services">Serviços</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#calculator">Calcular Frete</a></li>
+                        <li><a href="rastreamento.html">Rastreamento</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber nossas novidades e promoções.</p>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Seu e-mail" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%;">Inscrever</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Cargoblue Transportes. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="js/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY"); // Substitua pela sua chave pública do EmailJS
+        })();
+    </script>
+</body>
+</html>

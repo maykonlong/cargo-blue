@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargoblue - Transporte e Logística</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variáveis CSS */
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #ff6d00;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset e Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4, h5 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #e65100;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        /* Calculadora de Frete */
+        .calculator {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .calculator h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4fe;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* Serviços */
+        .services {
+            background: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            background: var(--primary);
+            color: white;
+            font-size: 2rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Sobre */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* Contato */
+        .contact {
+            background: var(--light);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .calculator {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">CARGOBLUE</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#calculator">Calcular Frete</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Soluções Logísticas Completas</h1>
+            <p>Transporte rápido, seguro e eficiente para sua carga. Conte com a experiência da Cargoblue para suas necessidades logísticas.</p>
+            <div class="hero-buttons">
+                <a href="#calculator" class="btn">Calcular Frete</a>
+                <a href="#contact" class="btn btn-outline">Fale Conosco</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Transporte Rodoviário</h3>
+                        <p>Transporte seguro e eficiente para cargas de todos os tamanhos em todo o território nacional.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Transporte Marítimo</h3>
+                        <p>Soluções logísticas para comércio exterior com agilidade e segurança para suas mercadorias.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Transporte Aéreo</h3>
+                        <p>Entregas rápidas e seguras para cargas urgentes em todo o Brasil e exterior.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Armazenagem</h3>
+                        <p>Armazenamento seguro com controle de temperatura e umidade para seus produtos.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Logística Integrada</h3>
+                        <p>Gestão completa da cadeia de suprimentos para otimizar seus processos logísticos.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Cargas Especiais</h3>
+                        <p>Transporte especializado para cargas de grande porte, frágeis ou de alto valor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Sobre a Cargoblue</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Com mais de 15 anos de experiência no mercado, a Cargoblue é referência em soluções logísticas no Brasil. Nossa missão é oferecer serviços de transporte e logística com excelência, segurança e agilidade.</p>
+                    <p>Contamos com uma frota moderna e diversificada, profissionais qualificados e tecnologia de ponta para garantir que sua carga chegue ao destino no prazo e em perfeitas condições.</p>
+                    <p>Atendemos empresas de todos os portes e segmentos, com soluções personalizadas para atender às necessidades específicas de cada cliente.</p>
+                    <a href="#contact" class="btn">Saiba Mais</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Armazém da Cargoblue">
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Anos de Experiência</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Clientes Satisfeitos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1000+</h3>
+                    <p>Entregas Realizadas</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Suporte ao Cliente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculadora de Frete -->
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <h2>Calcule seu Frete</h2>
+            <div class="calculator">
+                <h3>Simulador de Custo de Transporte</h3>
+                <form id="freightCalculator">
+                    <div class="form-group">
+                        <label for="vehicleType">Tipo de Veículo</label>
+                        <select id="vehicleType" class="form-control" required>
+                            <option value="">Selecione o tipo de veículo</option>
+                            <option value="small">VUC (Veículo Urbano de Carga) - Até 1.5 ton</option>
+                            <option value="medium">Caminhão Toco - Até 6 ton</option>
+                            <option value="large">Caminhão Truck - Até 14 ton</option>
+                            <option value="extra">Carreta - Até 30 ton</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="origin">Origem</label>
+                            <input type="text" id="origin" class="form-control" placeholder="Cidade de origem" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destino</label>
+                            <input type="text" id="destination" class="form-control" placeholder="Cidade de destino" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">Peso da Carga (kg)</label>
+                            <input type="number" id="weight" class="form-control" placeholder="Peso em quilogramas" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volume">Volume (m³)</label>
+                            <input type="number" id="volume" class="form-control" placeholder="Volume em metros cúbicos" step="0.01" min="0.1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cargoType">Tipo de Carga</label>
+                        <select id="cargoType" class="form-control" required>
+                            <option value="">Selecione o tipo de carga</option>
+                            <option value="general">Carga Geral</option>
+                            <option value="fragile">Carga Frágil</option>
+                            <option value="perishable">Carga Perecível</option>
+                            <option value="dangerous">Carga Perigosa</option>
+                            <option value="valuable">Carga de Alto Valor</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-secondary" style="width: 100%;">Calcular Frete</button>
+                </form>
+                <div class="result" id="result">
+                    <h4>Resultado da Simulação</h4>
+                    <p id="resultText"></p>
+                    <div class="hero-buttons" style="margin-top: 15px;">
+                        <a href="#" class="btn" id="whatsappBtn"><i class="fab fa-whatsapp"></i> Solicitar pelo WhatsApp</a>
+                        <a href="mailto:contato@cargoblue.com.br" class="btn btn-outline"><i class="fas fa-envelope"></i> Solicitar por E-mail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Endereço</h3>
+                            <p>Av. das Nações, 1234 - Centro<br>São Paulo - SP, 01234-567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Telefone</h3>
+                            <p>(11) 3456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>E-mail</h3>
+                            <p>contato@cargoblue.com.br</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Horário de Atendimento</h3>
+                            <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Cargoblue</h3>
+                    <p>Soluções logísticas completas para transporte de cargas em todo o Brasil.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#">Transporte Rodoviário</a></li>
+                        <li><a href="#">Transporte Marítimo</a></li>
+                        <li><a href="#">Transporte Aéreo</a></li>
+                        <li><a href="#">Armazenagem</a></li>
+                        <li><a href="#">Logística Integrada</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#calculator">Calcular Frete</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber nossas novidades e promoções.</p>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Seu e-mail" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%;">Inscrever</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Cargoblue Transportes. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Calculadora de Frete
+        document.getElementById('freightCalculator').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const vehicleType = document.getElementById('vehicleType').value;
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const volume = parseFloat(document.getElementById('volume').value);
+            const cargoType = document.getElementById('cargoType').value;
+            
+            // Validação básica
+            if (!vehicleType || !origin || !destination || !weight || !volume || !cargoType) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            // Cálculo fictício do frete (em uma aplicação real, isso viria de uma API)
+            let basePrice = 0;
+            
+            // Preço base por tipo de veículo
+            switch(vehicleType) {
+                case 'small':
+                    basePrice = 500;
+                    break;
+                case 'medium':
+                    basePrice = 800;
+                    break;
+                case 'large':
+                    basePrice = 1200;
+                    break;
+                case 'extra':
+                    basePrice = 2000;
+                    break;
+            }
+            
+            // Adicionais por tipo de carga
+            let cargoMultiplier = 1;
+            switch(cargoType) {
+                case 'fragile':
+                    cargoMultiplier = 1.3;
+                    break;
+                case 'perishable':
+                    cargoMultiplier = 1.5;
+                    break;
+                case 'dangerous':
+                    cargoMultiplier = 2.0;
+                    break;
+                case 'valuable':
+                    cargoMultiplier = 1.8;
+                    break;
+            }
+            
+            // Adicionais por peso e volume
+            const weightCost = weight * 0.5;
+            const volumeCost = volume * 100;
+            
+            // Cálculo final
+            const totalPrice = (basePrice + weightCost + volumeCost) * cargoMultiplier;
+            
+            // Exibir resultado
+            const resultDiv = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+            
+            resultText.innerHTML = `
+                <strong>Origem:</strong> ${origin}<br>
+                <strong>Destino:</strong> ${destination}<br>
+                <strong>Peso:</strong> ${weight} kg<br>
+                <strong>Volume:</strong> ${volume} m³<br>
+                <strong>Tipo de Carga:</strong> ${document.getElementById('cargoType').options[document.getElementById('cargoType').selectedIndex].text}<br>
+                <strong>Veículo:</strong> ${document.getElementById('vehicleType').options[document.getElementById('vehicleType').selectedIndex].text}<br>
+                <strong style="font-size: 1.2rem; color: var(--primary);">Valor Estimado: R$ ${totalPrice.toFixed(2)}</strong>
+            `;
+            
+            resultDiv.style.display = 'block';
+            
+            // Configurar botão do WhatsApp
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const message = `Olá, gostaria de solicitar um orçamento para transporte de ${weight}kg, volume de ${volume}m³, de ${origin} para ${destination}. Tipo de carga: ${cargoType}. Veículo: ${vehicleType}.`;
+            const encodedMessage = encodeURIComponent(message);
+            whatsappBtn.href = `https://wa.me/551134567890?text=${encodedMessage}`;
+            
+            // Rolar para o resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Formulário de Contato
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+
+        // Formulário de Newsletter
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Obrigado por se inscrever em nossa newsletter!');
+            this.reset();
+        });
+
+        // Smooth Scrolling para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
